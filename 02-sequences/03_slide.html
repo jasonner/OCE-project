@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script src="./js/Common.js" type="text/javascript"></script>
+		<title></title>
+		<meta charset="utf-8" />
+		<script type="text/javascript">
+			//获取像素比
+			var pixelRatio = 1 / window.devicePixelRatio;
+			//计算
+			var str = '<meta name="viewport" content="width=device-width,initial-scale=' + pixelRatio + ',' + 'minimum-scale=' +
+				pixelRatio + ',maximum-scale=' + pixelRatio + '" />';
+			document.write(str);
+
+			function resize() {
+				var html = document.getElementsByTagName("html")[0];
+				var htmlwid = html.getBoundingClientRect().width;
+				html.style.fontSize = htmlwid / 8 + "px";
+			}
+			window.addEventListener("resize", function() {
+				resize();
+			}, false)
+			resize();
+		</script>
+		<script type="text/javascript" src="./js/zepto.min.js"></script>
+		<link rel="stylesheet" href="./css/index.css" />
+		<script type="text/javascript">
+			//Receiver method of requested flow json 
+			function surveyFlowJsonHandler(flowJson) {
+				console.log(flowJson);
+				flowDiv = document.getElementById("flowJsonDiv");
+				flowDiv.innerHTML = JSON.stringify("<h5>" + JSON.stringify(flowJson) + "</h5>")
+				CLMPlayer.alert(JSON.stringify(flowJson));
+			}
+			// var sampleJson = {};
+			//这个方法是将json发送给swift代码，然后通过help if传递给调用 
+			function surveyFlowJsonForCallHandler() {
+				//将被 \ console.log("进入",sampleJ=son)
+				CLMPlayer.getSurveyFlowJsonForCall(sampleJson);
+			}
+			
+			CLMPlayer.registerEventListener("surveyflowjsonloaded", surveyFlowJsonHandler);
+			// CLMPlayer.registerEventListener("surveyflowjsonforcallloaded", surveyFlowJsonForCallHandler);
+		</script>
+	</head>
+	<body class="landing">
+		<!-- <script type="text/javascript">
+			
+			function getSurveyFlowJson() {
+				//This method will send the json to the swift so that we can get the flow json. From swift code corresponding flow json will get filtered and send back through the surveyflowjsonloaded event listener above
+				CLMPlayer.getSurveyFlowJson({"developerName": "eda_uni"})
+			}
+		</script> -->
+		<div class="layout flexpage">
+			<div class="pic-box1" id="box" style="background-image: url('./img/bg05-20.jpg')">
+				<a href="javascript:;" class="btn-back J_home" data-slide="03_slide.html"><img src="./img/back.png" /></a>
+				<!-- <img src="./img/bg05-20.jpg" class="bg"> -->
+				<div class="choices">
+					<form id="list">
+					</form>
+				</div>
+				<button type="button" class="tijiao" data-slide="06_slide.html">提交</button>
+			</div>
+		</div>
+		<script src="./js/index.js"></script>
+		<script type="text/javascript">
+			// console.log(sampleJson.choices)
+			// console.log(sampleJson.screens[0].fields)
+			// console.log(sampleJson.screens[0].fields)
+			// str 传入题目的下标
+			// console.log(sampleJson)
+			domlist(0,"D")
+			$(".tijiao").click(function(){
+				var reg = new RegExp(",","g")
+				var obj = document.getElementsByName("q_9c612b63_7f72_4788_a91f_9d71cc1049a8");
+					var check_arr = [];
+					for (var i = 0; i < obj.length; i++) {
+						if (obj[i].checked)
+							check_arr.push(obj[i].value);
+					}
+					sampleJson.screens[0].fields[0].answer=check_arr.toString().replace(reg, ';')
+					var state=JSON.stringify(sampleJson);
+				if($('input[name="q_9c612b63_7f72_4788_a91f_9d71cc1049a8"]:checked').val()){
+						CLMPlayer.saveState(state)
+						 CLMPlayer.gotoSlide(null,'06_slide.html');
+					
+				}else{
+					CLMPlayer.alert("请选择选项！")
+				}
+				// console.log($('input[name="vehicle"]:checked').val())
+			})
+				CLMPlayer.registerEventListener("returntocallbuttonpress", function() {
+					
+					CLMPlayer.getSurveyFlowJsonForCall(sampleJson);
+				});
+			layout.disablePageSwipe();
+		</script>
+	</body>
+</html>

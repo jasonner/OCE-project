@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+  <title></title>
+  <link href="./css/animate.min.css" rel="stylesheet"/>
+  <link href="./css/index.css" rel="stylesheet"/>
+  <script type="text/javascript">
+      //获取像素比
+      var pixelRatio = 1 / window.devicePixelRatio;
+      //计算
+      var str = '<meta name="viewport" content="width=device-width,initial-scale=' + pixelRatio + ',' + 'minimum-scale=' + pixelRatio + ',maximum-scale=' + pixelRatio + '" />';
+      document.write(str);
+      function resize() {
+          var html = document.getElementsByTagName("html")[0];
+          var htmlwid = html.getBoundingClientRect().width;
+          html.style.fontSize = htmlwid / 8 + "px";
+      }
+      window.addEventListener("resize", function () {
+          resize();
+      }, false)
+      resize();
+  </script>
+</head>
+<body>
+<div class="layout flexpage">
+			<div class="pic-box1" id="box"  style="background-image: url('./img/bg24-20.jpg')">
+				<a href="javascript:;" class="btn-back J_home" data-slide="19_slide.html"><img src="./img/back.png" /></a>
+				<!-- <img src="./img/bg05-20.jpg" class="bg"> -->
+				<div class="choices">
+					<p id="answer" style="display: none;">{{state}}</p>
+					<form id="list">
+					</form>
+				</div>
+				<button type="button" class="tijiao" data-slide="24_slide.html">提交</button>
+			</div>
+		</div>
+<script src="./js/zepto.min.js"></script>
+<script src="./js/index.js"></script>
+<script type="text/javascript">
+	
+	domlist(1,"")
+	$(".tijiao").click(function(){
+		sampleJson="";
+		sampleJson=JSON.parse($("#answer").text());
+		// CLMPlayer.alert(JSON.stringify(sampleJson))
+		var reg = new RegExp(",","g")
+		var obj = document.getElementsByName("q_94120d68_8c3f_409d_914d_2c7ba9cd7f63");
+			var check_arr = [];
+			for (var i = 0; i < obj.length; i++) {
+				if (obj[i].checked)
+					check_arr.push(obj[i].value);
+			}
+			sampleJson.screens[1].fields[0].answer=check_arr.toString().replace(reg, ';')
+			var answerArr = sampleJson.screens[0].fields[0].answer.split(";")
+		if($('input[name="q_94120d68_8c3f_409d_914d_2c7ba9cd7f63"]:checked').val()){
+			// 关键等级
+			// 第一题分数 第二题分数
+			var fs1=jisuan(answerArr,sampleJson.screens[0].fields[0].choiceReferences,"c_a25a8be8_9c21_4a97_a8f0_7b4a9f55a716");
+			var fs2=jisuan(check_arr,sampleJson.screens[1].fields[0].choiceReferences,"c_944e5f57_6aa2_4c40_ab26_7a7fd7e67eee")+"0";
+			var dj=fs1+parseInt(fs2);
+			if(dj == 13){
+				sampleJson.screens[2].fields[0].answer="c_2c19aa59_a241_4dbb_a0b1_3643fa00d64a"
+				console.log("A")
+			}
+			else if(dj >= 9){
+				sampleJson.screens[2].fields[0].answer="c_a63e0e00_ff85_4af1_9952_eecb9d14a935"
+				console.log("B")
+			}
+			else if(dj == 3){
+				sampleJson.screens[2].fields[0].answer="c_641bfc13_b4ab_420b_a736_0f5761a5163a"
+				console.log("C")
+			}else{
+				sampleJson.screens[2].fields[0].answer="c_1806612d_0387_4a97_82f9_1fcec3e00441"
+				console.log("D")
+			}
+			CLMPlayer.alert("提交成功")
+			CLMPlayer.getSurveyFlowJsonForCall(sampleJson);
+			var state=JSON.stringify(sampleJson);
+			CLMPlayer.saveState(state)
+				 CLMPlayer.gotoSlide(null,'23_slide.html');
+		}else{
+			CLMPlayer.alert("请选择选项！")
+		}
+		
+		
+		// console.log($('input[name="vehicle"]:checked').val())
+	})
+	layout.disablePageSwipe();
+		CLMPlayer.registerEventListener("returntocallbuttonpress", function() {
+			CLMPlayer.getSurveyFlowJsonForCall(sampleJson);
+		});
+</script>
+</body>
+</html>

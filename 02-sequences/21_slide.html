@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+  <title></title>
+  <link href="./css/animate.min.css" rel="stylesheet"/>
+  <link href="./css/index.css" rel="stylesheet"/>
+  <script type="text/javascript">
+      //获取像素比
+      var pixelRatio = 1 / window.devicePixelRatio;
+      //计算
+      var str = '<meta name="viewport" content="width=device-width,initial-scale=' + pixelRatio + ',' + 'minimum-scale=' + pixelRatio + ',maximum-scale=' + pixelRatio + '" />';
+      document.write(str);
+      function resize() {
+          var html = document.getElementsByTagName("html")[0];
+          var htmlwid = html.getBoundingClientRect().width;
+          html.style.fontSize = htmlwid / 8 + "px";
+      }
+      window.addEventListener("resize", function () {
+          resize();
+      }, false)
+      resize();
+  </script>
+</head>
+<body>
+<div class="layout flexpage">
+  <div class="pic-box" id="box">
+	  <a href="javascript:;" class="btn-back J_slide" data-slide="19_slide.html"><img src="./img/back.png"/></a>
+	  <p id="answer" style="display: none;">{{state}}</p>
+	  <img src="./img/bg22-20.jpg" class="bg">
+     </div>
+</div>
+<script src="./js/zepto.min.js"></script>
+<script src="./js/index.js"></script>
+<script type="text/javascript">
+	CLMPlayer.registerEventListener("returntocallbuttonpress", function() {
+		sampleJson="";
+		sampleJson=JSON.parse($("#answer").text());
+		CLMPlayer.getSurveyFlowJsonForCall(sampleJson);
+	});
+</script>
+</body>
+</html>

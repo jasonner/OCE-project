@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+  <title></title>
+  <script src="./js/Common.js" type="text/javascript"></script>
+  <link href="./css/animate.min.css" rel="stylesheet"/>
+  <link href="./css/index.css" rel="stylesheet"/>
+  <script type="text/javascript">
+      //获取像素比
+      var pixelRatio = 1 / window.devicePixelRatio;
+      //计算
+      var str = '<meta name="viewport" content="width=device-width,initial-scale=' + pixelRatio + ',' + 'minimum-scale=' + pixelRatio + ',maximum-scale=' + pixelRatio + '" />';
+      document.write(str);
+      function resize() {
+          var html = document.getElementsByTagName("html")[0];
+          var htmlwid = html.getBoundingClientRect().width;
+          html.style.fontSize = htmlwid / 8 + "px";
+      }
+      window.addEventListener("resize", function () {
+          resize();
+      }, false)
+      resize();
+  </script>
+</head>
+<body>
+<div class="layout flexpage">
+			<div class="pic-box1" id="box" style="background-image: url('./img/bg31-20.jpg')">
+				<a href="javascript:;" class="btn-back J_home"><img src="./img/back.png" /></a>
+				<p id="answer" style="display: none;">{{state}}</p>
+				<!-- <img src="./img/bg05-20.jpg" class="bg"> -->
+				<div class="choices">
+					<form id="list">
+					</form>
+				</div>
+				<button type="button" class="tijiao" data-slide="06_slide.html">提交</button>
+			</div>
+		</div>
+<script src="./js/zepto.min.js"></script>
+<script src="./js/index.js"></script>
+<script type="text/javascript">
+	domlist(0,"D")
+	$(".tijiao").click(function(){
+		var reg = new RegExp(",","g")
+		var obj = document.getElementsByName("q_aad47dfd_6e6f_4859_bbff_5dc0c45cd73f");
+			var check_arr = [];
+			for (var i = 0; i < obj.length; i++) {
+				if (obj[i].checked)
+					check_arr.push(obj[i].value);
+			}
+			sampleJson.screens[0].fields[0].answer=check_arr.toString().replace(reg, ';')
+			var state=JSON.stringify(sampleJson);
+		if($('input[name="q_aad47dfd_6e6f_4859_bbff_5dc0c45cd73f"]:checked').val()){
+				CLMPlayer.saveState(state)
+				 CLMPlayer.gotoSlide(null,'06_slide.html');
+			
+		}else{
+			// alert("请选择选项！")
+			CLMPlayer.alert("请选择选项！")
+		}
+		// console.log($('input[name="vehicle"]:checked').val())
+	})
+	layout.disablePageSwipe();
+		CLMPlayer.registerEventListener("returntocallbuttonpress", function() {
+			CLMPlayer.getSurveyFlowJsonForCall(sampleJson);
+		});
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+/*reset*/
+body, html, div,img, ol, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, footer, header, menu, nav, section, article, input, select, form {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: 32px;
+  }
+}
+
+body {
+  font: .6rem/1.5 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  color: #fff;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+ul li {
+  list-style: none;
+}
+
+textarea {
+  resize: none;
+}
+
+iframe, img {
+  border: 0;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.animated {
+  display: none;
+}
+
+.swiper-slide-active .animated {
+  display: block;
+}
+	
+.bg{
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	
+}
+.btn{
+	width: 1.667968rem;
+	height: 80vh;
+	right: 100px;
+	bottom: 0;
+	position: absolute;
+}
+.btn div{
+	width: 100%;
+	height: 0.558593rem;
+	overflow: hidden;
+	margin: 0.316406rem 0px;
+	position: relative;
+}
+.btn div img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
